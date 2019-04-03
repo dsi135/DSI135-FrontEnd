@@ -1,4 +1,3 @@
-
 <template>
   <v-app id="sandbox" :dark="dark">
     <v-navigation-drawer
@@ -105,5 +104,3 @@ export default {
   })
 };
 </script>
-
-
