@@ -1,25 +1,37 @@
 <template>
-  <v-data-table
-    :headers="headers"
-    :items="cuentas"
-    class="elevation-1"
-    :total-items="cuentas.length"
-  >
-    <template v-slot:items="props">
-      <td>{{ props.item.cuenta }}</td>
-      <td >{{ props.item.mesa }}</td>
-      <td >{{ props.item.cliente }}</td>
-      <td >{{ props.item.mesero }}</td>
-      <td >{{ props.item.total }}</td>
-    </template>
-  </v-data-table>
+    <v-card>
+      <v-card-title>
+        Filtro
+        <v-spacer></v-spacer>
+        <v-text-field
+          v-model="search"
+          append-icon="search"
+          label="Search"
+          single-line
+          hide-details
+        ></v-text-field>
+      </v-card-title>
+      <v-data-table
+        :headers="headers"
+        :items="cuentas"
+        :search="search">
+        <template v-slot:items="props">
+          <td>{{ props.item.cuenta }}</td>
+          <td >{{ props.item.mesa }}</td>
+          <td >{{ props.item.cliente }}</td>
+          <td >{{ props.item.mesero }}</td>
+          <td >{{ props.item.total }}</td>
+        </template>
+      </v-data-table>
+    </v-card>
 </template>
 
 <script>
   export default {
-    data () {
-      return {
-        headers: [
+      data () {
+        return {
+          search: '',
+          headers: [
           {
             text: 'Cuenta',
             align: 'left',
@@ -64,7 +76,14 @@
             cuenta: 35,
             mesa: 4,
             cliente: "Don cangrejo",
-            mesero: "bob esponja",
+            mesero: "Bob Esponja",
+            total: 25.50
+          },
+          {
+            cuenta: 32123,
+            mesa: 7,
+            cliente: "Jostar Jotaro",
+            mesero: "Dio Brando",
             total: 25.50
           },
           {
