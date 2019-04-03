@@ -94,12 +94,6 @@ export default {
         "Wyoming"
       ]
     };
-  },
-  methods: {
-    addProducto() {
-        console.log(this.producto);
-        this.productos.push(this.producto.pop())
-    }
   }
 };
 </script>
