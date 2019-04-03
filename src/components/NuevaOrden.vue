@@ -4,14 +4,13 @@
       <v-card-title class="headline font-weight-regular blue-grey white--text">Productos</v-card-title>
       <v-card-text>
         <v-autocomplete
-          v-model="producto"
+          v-model="productos"
           :items="states"
           label="Seleccione un Producto"
           prepend-icon="mdi-city"
           persistent-hint
           multiple
           disabled:true
-          @input="addProducto()"
         ></v-autocomplete>
 
         <v-list>
