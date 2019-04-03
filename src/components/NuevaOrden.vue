@@ -4,17 +4,24 @@
       <v-card-title class="headline font-weight-regular blue-grey white--text">Productos</v-card-title>
       <v-card-text>
         <v-autocomplete
-          v-model="model"
+          v-model="producto"
           :items="states"
           label="Seleccione un Producto"
-          persistent-hint
           prepend-icon="mdi-city"
+          persistent-hint
+          multiple
+          disabled:true
+          @input="addProducto()"
         ></v-autocomplete>
+
         <v-list>
-          <v-list-tile @click="true">
-            <v-list-tile-title>Dashboard</v-list-tile-title>
-          </v-list-tile>
+          <template v-for="(producto, index) in productos">
+            <v-list-tile @click="true" :key="index">
+              <v-list-tile-title>{{producto}}</v-list-tile-title>
+            </v-list-tile>
+          </template>
         </v-list>
+
       </v-card-text>
     </v-card>
   </v-app>
@@ -24,8 +31,7 @@
 export default {
   data() {
     return {
-      isEditing: false,
-      model: null,
+      producto: null,
       productos: [],
       states: [
         "Papas",
@@ -91,7 +97,10 @@ export default {
     };
   },
   methods: {
-      
+    addProducto() {
+        console.log(this.producto);
+        this.productos.push(this.producto.pop())
+    }
   }
 };
 </script>

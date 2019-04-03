@@ -33,13 +33,15 @@
     </v-toolbar>
 
     <v-content>
-      <Dashboard v-show="dash"/>
+      <dashboard v-show="dash"/>
+      <nuevaOrden/>
+
       <v-container fluid v-show="config">
-        <v-layout align-center justify-center>
-          
+        <v-layout align-center justify-center >
+          <v-flex xs10>
             <v-card>
               <v-card-text>
-              
+               <v-layout row wrap>
                   <v-flex xs12 md6>
                     <span>Scheme</span>
                     <v-switch v-model="dark" primary label="Dark"></v-switch>
@@ -64,7 +66,7 @@
                     <span>Footer</span>
                     <v-switch v-model="footer.inset" label="Inset" primary></v-switch>
                   </v-flex>
-               
+               </v-layout>
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
@@ -72,10 +74,12 @@
                 <v-btn flat color="primary">Submit</v-btn>
               </v-card-actions>
             </v-card>
-          
+          </v-flex>
         </v-layout>
       </v-container>
+
     </v-content>
+    
     <v-footer :inset="footer.inset" app>
       <span class="px-3">&copy; 2019</span>
     </v-footer>
@@ -84,12 +88,14 @@
 
 <script>
 import Dashboard from "./components/Dashboard.vue"
+import NuevaOrden from "./components/NuevaOrden.vue"
 export default {
   components: {
-    Dashboard
+    "dashboard": Dashboard,
+    "nuevaOrden": NuevaOrden
   },
   data: () => ({
-    dash: true,
+    dash: false,
     config: false,
     dark: true,
     drawers: ["Default (no property)", "Temporary"],
