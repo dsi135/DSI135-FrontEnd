@@ -19,8 +19,50 @@
             <v-list-tile-title>{{apartado.apartado}}</v-list-tile-title>
           </v-list-tile>
         </template>
+
+        <v-list-group prepend-icon="view_list" value="true">
+          <template v-slot:activator>
+            <v-list-tile>
+              <v-list-tile-title>Opciones</v-list-tile-title>
+            </v-list-tile>
+          </template>
+          <v-list-group no-action sub-group value="true">
+            <template v-slot:activator>
+              <v-list-tile>
+                <v-list-tile-title>Admin</v-list-tile-title>
+              </v-list-tile>
+            </template>
+
+            <v-list-tile @click="true">
+              <v-list-tile-title>Productos</v-list-tile-title>
+              <v-list-tile-action>
+                <v-icon>fastfood</v-icon>
+              </v-list-tile-action>
+            </v-list-tile>
+
+            <v-list-tile @click="true">
+              <v-list-tile-title>Categorias</v-list-tile-title>
+              <v-list-tile-action>
+                <v-icon>category</v-icon>
+              </v-list-tile-action>
+            </v-list-tile>
+          </v-list-group>
+
+          <v-list-tile @click="true">
+            <v-list-tile-action>
+              <v-icon>assessment</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-title>Estadisticas</v-list-tile-title>
+          </v-list-tile>
+
+          <v-list-tile @click="true">
+            <v-list-tile-action>
+              <v-icon>settings</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-title>Configuracion</v-list-tile-title>
+          </v-list-tile>
+        </v-list-group>
       </v-list>
-      <v-switch v-model="dark" primary label="Dark"></v-switch>
     </v-navigation-drawer>
 
     <v-toolbar :clipped-left="primaryDrawer.clipped" app fixed>
@@ -32,6 +74,7 @@
       <dashboard v-show="apartados[0].render"/>
       <nuevaOrden v-show="apartados[1].render"/>
 
+      <!-- ESTO ES EL COMPONENTE DE CONFIGURACION -->
       <v-container fluid v-show="apartados[2].render">
         <v-layout align-center justify-center>
           <v-flex xs10>
@@ -49,8 +92,8 @@
                       <v-radio
                         v-for="drawer in drawers"
                         :key="drawer"
-                        :label="drawer"
-                        :value="drawer.toLowerCase()"
+                        :label="drawer.nombre"
+                        :value="drawer.tipo.toLowerCase()"
                         primary
                       ></v-radio>
                     </v-radio-group>
@@ -97,7 +140,10 @@ export default {
         { apartado: "Nueva Orden", render: false, icon: "assignment" },
         { apartado: "Configuracion", render: false, icon: "settings" }
       ],
-      drawers: ["Default (no property)", "Temporary"],
+      drawers: [
+        { nombre: "Default", tipo: "Default (no property)" },
+        { nombre: "Temporal", tipo: "Temporary" }
+      ],
       primaryDrawer: {
         model: null,
         type: "default (no property)",
@@ -110,10 +156,10 @@ export default {
     };
   },
   methods: {
-    renderizar(index){
+    renderizar(index) {
       this.apartados.forEach(apartado => {
         apartado.render = false;
-      })
+      });
       this.apartados[index].render = true;
     }
   }
