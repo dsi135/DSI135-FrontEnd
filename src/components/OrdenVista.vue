@@ -2,11 +2,14 @@
   <v-layout>
     <v-flex xs10 offset-xs1>
       <v-card class="mx-auto" height="95px">
-
-        <v-card-text
-          class="">
-          "Turns out semicolon-less style is easier and safer in TS because most gotcha edge cases are type invalid as well."</v-card-text>
-
+        <v-card-text>
+          <v-layout row wrap>
+            <v-flex xs6>ORDEN:</v-flex>
+            <v-flex xs6>MESA:</v-flex>
+            <v-flex xs6>MESERO:</v-flex>
+            <v-flex xs6>CLIENTE:</v-flex>
+          </v-layout>
+        </v-card-text>
       </v-card>
       <v-data-table :headers="headers" :items="productos" class="elevation-1" hide-actions>
         <template v-slot:items="productos">
@@ -19,8 +22,17 @@
           <v-alert :value="true" icon="warning">Aun no elije productos</v-alert>
         </template>
       </v-data-table>
-      Total {{total()}}
-      <v-btn flat>Normal</v-btn>
+      <v-layout row wrap>
+        <v-flex xs3 offset-xs9 class="text-xs-center">
+          <b>Total ${{total()}}</b>
+        </v-flex>
+        <v-flex xs12>
+          <v-text-field label="Observaciones" single-line></v-text-field>
+        </v-flex>
+        <v-flex xs3 offset-xs9 class="text-xs-center">
+          <v-btn flat>{{btnname}}</v-btn>
+        </v-flex>
+      </v-layout>
     </v-flex>
   </v-layout>
 </template>
@@ -48,6 +60,6 @@ export default {
       return resultado;
     }
   },
-  props: ["productos"]
+  props: ["productos","btnname"]
 };
 </script>

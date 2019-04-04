@@ -45,7 +45,7 @@
         </v-list>
       </v-flex>
       <v-flex xs6>
-        <vista :productos="resumen"/>
+        <vista :productos="resumen" btnname="GUARDAR"/>
       </v-flex>
     </v-layout>
   </div>
