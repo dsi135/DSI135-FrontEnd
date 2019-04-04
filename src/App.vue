@@ -73,9 +73,11 @@
     <v-content>
       <dashboard v-show="apartados[0].render"/>
       <nuevaOrden v-show="apartados[1].render"/>
+      <nuevaOrden v-show="apartados[2].render"/>
+      <cobrarOrden v-show="apartados[3].render"/>
 
       <!-- ESTO ES EL COMPONENTE DE CONFIGURACION -->
-      <v-container fluid v-show="apartados[2].render">
+      <v-container fluid v-show="apartados[4].render">
         <v-layout align-center justify-center>
           <v-flex xs10>
             <v-card>
@@ -127,10 +129,12 @@
 <script>
 import Dashboard from "./components/Dashboard.vue";
 import NuevaOrden from "./components/NewOrder.vue";
+import CobrarOrden from "./components/Cobrar.vue";
 export default {
   components: {
     dashboard: Dashboard,
-    nuevaOrden: NuevaOrden
+    nuevaOrden: NuevaOrden,
+    cobrarOrden: CobrarOrden
   },
   data() {
     return {
@@ -138,7 +142,9 @@ export default {
       apartados: [
         { apartado: "Dasboard", render: false, icon: "dashboard" },
         { apartado: "Nueva Orden", render: false, icon: "assignment" },
-        { apartado: "Configuracion", render: false, icon: "settings" }
+        { apartado: "Editar Orden", render: false, icon: "assignment_turned_in"},
+        { apartado: "Cobrar Orden", render: false, icon: "payment" },
+        { apartado: "Personalizar", render: false, icon: "settings" }
       ],
       drawers: [
         { nombre: "Default", tipo: "Default (no property)" },
