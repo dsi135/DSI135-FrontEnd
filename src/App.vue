@@ -20,6 +20,7 @@
           </v-list-tile>
         </template>
       </v-list>
+      <v-switch v-model="dark" primary label="Dark"></v-switch>
     </v-navigation-drawer>
 
     <v-toolbar :clipped-left="primaryDrawer.clipped" app fixed>
@@ -82,7 +83,7 @@
 
 <script>
 import Dashboard from "./components/Dashboard.vue";
-import NuevaOrden from "./components/NuevaOrden.vue";
+import NuevaOrden from "./components/NewOrder.vue";
 export default {
   components: {
     dashboard: Dashboard,
@@ -118,5 +119,3 @@ export default {
   }
 };
 </script>
-
-
