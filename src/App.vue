@@ -92,8 +92,8 @@
                     <span>Drawer</span>
                     <v-radio-group v-model="primaryDrawer.type" column>
                       <v-radio
-                        v-for="drawer in drawers"
-                        :key="drawer"
+                        v-for="(drawer,index) in drawers"
+                        :key="index"
                         :label="drawer.nombre"
                         :value="drawer.tipo.toLowerCase()"
                         primary
