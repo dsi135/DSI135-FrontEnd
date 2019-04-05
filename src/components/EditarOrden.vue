@@ -45,7 +45,7 @@
         </v-card>
       </v-flex>
       <v-flex xs6>
-        <vista :productos="ticket"/>
+        <vista :productos="ticket" btnname="GUARDAR"/>
       </v-flex>
     </v-layout>
   </div>
