@@ -14,6 +14,9 @@
         <td>{{ props.item.mesero }}</td>
         <td>{{ props.item.total }}</td>
       </template>
+      <template v-slot:no-data>
+          <v-alert :value="true" icon="warning">No hay cuentas</v-alert>
+        </template>
     </v-data-table>
   </v-card>
 </template>
