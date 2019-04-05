@@ -6,14 +6,15 @@
 
     <!--BOTONES DASHBOARD-->
     <v-layout v-show="apartados[0].render" align-center justify-center row fill-height>
-      <v-flex xs2 offset-xs6>
+      <v-flex xs2 offset-xs5>
         <v-btn flat @click="renderizar(1)">NUEVA ORDEN</v-btn>
       </v-flex>
       <v-flex xs2>
         <v-btn flat @click="renderizar(1)">EDITAR ORDEN</v-btn>
       </v-flex>
-      <v-flex xs2>
+      <v-flex xs3>
         <v-btn color="error">COBRAR</v-btn>
+        <v-btn color="error">IMPRIMIR</v-btn>
       </v-flex>
     </v-layout>
 

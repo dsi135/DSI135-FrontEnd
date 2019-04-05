@@ -11,12 +11,12 @@
       app
     > 
       <v-list>
-        <template v-for="(apartado, index) in apartados">
-          <v-list-tile @click="renderizar(index)" :key="index">
+        <template>
+          <v-list-tile @click="renderizar(0)">
             <v-list-tile-action>
-              <v-icon>{{apartado.icon}}</v-icon>
+              <v-icon>dashboard</v-icon>
             </v-list-tile-action>
-            <v-list-tile-title>{{apartado.apartado}}</v-list-tile-title>
+            <v-list-tile-title>Dashboard</v-list-tile-title>
           </v-list-tile>
         </template>
 
@@ -55,11 +55,11 @@
             <v-list-tile-title>Estadisticas</v-list-tile-title>
           </v-list-tile>
 
-          <v-list-tile @click="true">
+          <v-list-tile @click="renderizar(1)">
             <v-list-tile-action>
               <v-icon>settings</v-icon>
             </v-list-tile-action>
-            <v-list-tile-title>Configuracion</v-list-tile-title>
+            <v-list-tile-title>Personalizacion</v-list-tile-title>
           </v-list-tile>
         </v-list-group>
       </v-list>
@@ -71,13 +71,10 @@
     </v-toolbar>
 
     <v-content>
-      <handler/>
-      <nuevaOrden v-show="apartados[1].render"/>
-      <nuevaOrden v-show="apartados[2].render"/>
-      <cobrarOrden v-show="apartados[3].render"/>
+      <handler v-show="apartados[0].render"/>
 
       <!-- ESTO ES EL COMPONENTE DE CONFIGURACION -->
-      <v-container fluid v-show="apartados[4].render">
+      <v-container fluid v-show="apartados[1].render">
         <v-layout align-center justify-center>
           <v-flex xs10>
             <v-card>
@@ -138,11 +135,8 @@ export default {
     return {
       dark: true,
       apartados: [
-        { apartado: "Dasboard", render: false, icon: "dashboard" },
-        { apartado: "Nueva Orden", render: false, icon: "assignment" },
-        { apartado: "Editar Orden", render: false, icon: "assignment_turned_in"},
-        { apartado: "Cobrar Orden", render: false, icon: "payment" },
-        { apartado: "Personalizar", render: false, icon: "settings" }
+        { apartado: "Dasboard", render: true},
+        { apartado: "Personalizar", render: false}
       ],
       drawers: [
         { nombre: "Default", tipo: "Default (no property)" },

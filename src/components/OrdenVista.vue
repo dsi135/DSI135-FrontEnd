@@ -4,14 +4,14 @@
       <v-card class="mx-auto" height="95px">
         <v-card-text>
           <v-layout row wrap>
-            <v-flex xs6>ORDEN:</v-flex>
+            <v-flex xs6>&nbsp;&nbsp;&nbsp;ORDEN:</v-flex>
             <v-flex xs6>MESA:</v-flex>
-            <v-flex xs6>MESERO:</v-flex>
+            <v-flex xs6>&nbsp;&nbsp;&nbsp;MESERO:</v-flex>
             <v-flex xs6>CLIENTE:</v-flex>
           </v-layout>
         </v-card-text>
       </v-card>
-      <v-data-table :headers="headers" :items="productos" class="elevation-1" hide-actions>
+      <v-data-table :headers="headers" :items="productos" class="elevation-1">
         <template v-slot:items="productos">
           <td>{{ productos.item.cantidad }}</td>
           <td>{{ productos.item.producto }}</td>
