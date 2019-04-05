@@ -29,9 +29,6 @@
         <v-flex xs12>
           <v-text-field label="Observaciones" single-line></v-text-field>
         </v-flex>
-        <v-flex xs3 offset-xs9 class="text-xs-center">
-          <v-btn flat>{{btnname}}</v-btn>
-        </v-flex>
       </v-layout>
     </v-flex>
   </v-layout>
@@ -60,6 +57,6 @@ export default {
       return resultado;
     }
   },
-  props: ["productos","btnname"]
+  props: ["productos"]
 };
 </script>

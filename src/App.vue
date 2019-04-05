@@ -9,7 +9,7 @@
       absolute
       overflow
       app
-    >
+    > 
       <v-list>
         <template v-for="(apartado, index) in apartados">
           <v-list-tile @click="renderizar(index)" :key="index">
@@ -71,7 +71,7 @@
     </v-toolbar>
 
     <v-content>
-      <dashboard v-show="apartados[0].render"/>
+      <handler/>
       <nuevaOrden v-show="apartados[1].render"/>
       <nuevaOrden v-show="apartados[2].render"/>
       <cobrarOrden v-show="apartados[3].render"/>
@@ -127,14 +127,12 @@
 </template>
 
 <script>
-import Dashboard from "./components/Dashboard.vue";
-import NuevaOrden from "./components/NewOrder.vue";
-import CobrarOrden from "./components/Cobrar.vue";
+
+
+import handler from "./components/Handler";
 export default {
   components: {
-    dashboard: Dashboard,
-    nuevaOrden: NuevaOrden,
-    cobrarOrden: CobrarOrden
+    handler: handler
   },
   data() {
     return {
