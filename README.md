@@ -1,4 +1,4 @@
-# dsivuefront
+# vuefront2.0
 
 ## Project setup
 ```

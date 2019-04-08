@@ -50,7 +50,7 @@ export default {
       active: null,
       search: "",
       resumen: [],
-      categoria: 1,
+      categoria: 0,
       categorias: ["bebidas", "principal", "postre"],
       producto: null,
       productos: [
@@ -146,6 +146,9 @@ export default {
           producto.cantidad = registro.cantidad;
         }
       });
+
+      this.resumen = this.resumen.filter(producto => producto.cantidad !== 0);
+      console.log(JSON.parse(JSON.stringify(this.resumen)));
     }
   }
 };
