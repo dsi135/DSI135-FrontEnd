@@ -22,6 +22,9 @@
           <v-alert :value="true" icon="warning">Aun no elije productos</v-alert>
         </template>
       </v-data-table>
+        <template>
+            <v-btn flat @click="$router.push('dashboard')">GUARDAR</v-btn>
+        </template>
       <v-layout row wrap>
         <v-flex xs3 offset-xs9 class="text-xs-center">
           <b>Total ${{total()}}</b>
