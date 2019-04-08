@@ -18,6 +18,18 @@
           <v-alert :value="true" icon="warning">No hay cuentas</v-alert>
         </template>
     </v-data-table>
+    <v-layout  align-center justify-center row fill-height>
+      <v-flex xs2 offset-xs5>
+        <v-btn flat @click="$router.push('nuevaorden')">NUEVA ORDEN</v-btn>
+      </v-flex>
+      <v-flex xs2>
+        <v-btn flat @click="renderizar(1)">EDITAR ORDEN</v-btn>
+      </v-flex>
+      <v-flex xs3>
+        <v-btn color="error">COBRAR</v-btn>
+        <v-btn color="error">IMPRIMIR</v-btn>
+      </v-flex>
+    </v-layout>
   </v-card>
 </template>
 
