@@ -1,13 +1,13 @@
 <template>
   <v-layout>
-    <v-flex xs10 offset-xs1>
+    <v-flex xs12 offset-xs1>
       <v-card class="mx-auto" height="95px">
         <v-card-text>
           <v-layout row wrap>
-            <v-flex xs6>&nbsp;&nbsp;&nbsp;ORDEN:</v-flex>
-            <v-flex xs6>MESA:</v-flex>
-            <v-flex xs6>&nbsp;&nbsp;&nbsp;MESERO:</v-flex>
-            <v-flex xs6>CLIENTE:</v-flex>
+            <v-flex xs6>&nbsp;&nbsp;&nbsp;ORDEN: {{detalles.cuenta}}</v-flex>
+            <v-flex xs6>MESA: {{detalles.mesa}}</v-flex>
+            <v-flex xs6>&nbsp;&nbsp;&nbsp;MESERO: {{detalles.mesero}}</v-flex>
+            <v-flex xs6>CLIENTE: {{detalles.cliente}}</v-flex>
           </v-layout>
         </v-card-text>
       </v-card>
@@ -22,10 +22,13 @@
           <v-alert :value="true" icon="warning">Aun no elije productos</v-alert>
         </template>
       </v-data-table>
-        <template>
-            <v-btn flat @click="$router.push('dashboard')">GUARDAR</v-btn>
-        </template>
+       
+            
+        
       <v-layout row wrap>
+        <v-flex xs9>
+          <v-btn flat @click="guardar(), $router.push('dashboard')">GUARDAR</v-btn>
+        </v-flex>
         <v-flex xs3 offset-xs9 class="text-xs-center">
           <b>Total ${{total()}}</b>
         </v-flex>
@@ -38,6 +41,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   data() {
     return {
@@ -56,10 +60,17 @@ export default {
         resultado +=
           this.productos[item].precio * this.productos[item].cantidad;
       }
-
+      this.detalles.total = resultado;
       return resultado;
+    },
+    guardar(){
+      this.cuentas.push(this.detalles);
+      this.footer.alert= true;
     }
   },
-  props: ["productos"]
+  computed:{
+    ...mapState(['cuentas', 'footer'])
+  },
+  props: ["productos", "detalles"]
 };
 </script>

@@ -18,8 +18,12 @@ export default new Vuex.Store({
       },
       footer: {
         inset: false,
-        dark: true
-      }
+        dark: true,
+        alert: false
+      },
+      cuentas: [
+        
+      ]
   },
   mutations: {
 

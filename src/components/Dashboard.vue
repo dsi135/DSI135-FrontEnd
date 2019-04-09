@@ -30,10 +30,18 @@
         <v-btn color="error">IMPRIMIR</v-btn>
       </v-flex>
     </v-layout>
+    <v-alert
+      :value="footer.alert"
+      type="success"
+      dismissible
+      transition="scale-transition"
+    >Se guardo nueva orden con exito.</v-alert>
   </v-card>
+  
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   data() {
     return {
@@ -49,59 +57,12 @@ export default {
         { text: "Cliente", value: "cliente" },
         { text: "Mesero", value: "mesero" },
         { text: "Total", value: "total" }
-      ],
-      cuentas: [
-        {
-          cuenta: 45,
-          mesa: 8,
-          cliente: "Juan Perez",
-          mesero: "El jhon cena",
-          total: 25.5
-        },
-        {
-          cuenta: 27,
-          mesa: 15,
-          cliente: "Pedro al accino",
-          mesero: "Don teodorito",
-          total: 69.5
-        },
-        {
-          cuenta: 69,
-          mesa: 4,
-          cliente: "Dick Tracy",
-          mesero: "El tucan",
-          total: 56.5
-        },
-        {
-          cuenta: 25,
-          mesa: 36,
-          cliente: "Barac Osama",
-          mesero: "Donald Trump",
-          total: 96.0
-        },
-        {
-          cuenta: 35,
-          mesa: 4,
-          cliente: "Don cangrejo",
-          mesero: "Bob Esponja",
-          total: 25.5
-        },
-        {
-          cuenta: 32123,
-          mesa: 7,
-          cliente: "Jostar Jotaro",
-          mesero: "Dio Brando",
-          total: 25.5
-        },
-        {
-          cuenta: 654,
-          mesa: 12,
-          cliente: "Lucas Trotacielos",
-          mesero: "Obi wan keno ve",
-          total: 25.5
-        }
       ]
+      
     };
+  },
+  computed: {
+    ...mapState(['cuentas', 'footer'])
   }
 };
 </script>
