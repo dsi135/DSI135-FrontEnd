@@ -1,21 +1,48 @@
 <template>
-  <div>
+  <v-container fluid class="container">
     <v-layout>
       <v-flex xs6>
-        <v-toolbar active>
-          <v-toolbar-title>ORDEN:</v-toolbar-title>
-          <v-text-field label="Seleccione un Producto" v-model="search"></v-text-field>
-          <template v-slot:extension>
-            <v-tabs v-model="active" fixed-tabs color="transparent" slider-color="yellow">
-              <v-tab
-                v-for="(categoria, index) in categorias"
-                :key="index"
-                ripple
-                @click="setCategoria(index)"
-              >{{ categoria }}</v-tab>
-            </v-tabs>
-          </template>
-        </v-toolbar>
+        <v-card color="#212121">
+          <v-container fluid>
+            <v-form>
+              <v-layout row>
+                <v-flex xs2>
+                  <v-text-field v-model="detalle.cuenta" label="Orden:" required></v-text-field>
+                </v-flex>
+
+                <v-flex xs5>
+                  <v-text-field v-model="detalle.mesero" label="Mesero:" required></v-text-field>
+                </v-flex>
+
+                <v-flex xs5>
+                  <v-text-field v-model="detalle.cliente" label="Cliente:" required></v-text-field>
+                </v-flex>
+              </v-layout>
+              <v-layout row>
+                <v-flex xs3>
+                  <v-text-field v-model="detalle.mesa" label="Mesa:" required></v-text-field>
+                </v-flex>
+                <v-flex xs9>
+                  <v-text-field label="Seleccione un Producto" v-model="search"></v-text-field>
+                </v-flex>
+              </v-layout>
+            </v-form>
+            <v-layout row>
+              <v-flex x12>
+                <template>
+                  <v-tabs v-model="active" fixed-tabs color="transparent" slider-color="yellow">
+                    <v-tab
+                      v-for="(categoria, index) in categorias"
+                      :key="index"
+                      ripple
+                      @click="setCategoria(index)"
+                    >{{ categoria }}</v-tab>
+                  </v-tabs>
+                </template>
+              </v-flex>
+            </v-layout>
+          </v-container>
+        </v-card>
 
         <v-list>
           <v-list-tile v-for="(producto, index) in filter" :key="index" ripple>
@@ -33,10 +60,11 @@
         </v-list>
       </v-flex>
       <v-flex xs6>
-        <vista :productos="resumen"/>
+        <vista :productos="resumen" :detalles="detalle"/>
       </v-flex>
     </v-layout>
-  </div>
+
+  </v-container>
 </template>
 
 <script>
@@ -53,6 +81,13 @@ export default {
       categoria: 0,
       categorias: ["bebidas", "principal", "postre"],
       producto: null,
+      detalle: {
+        cuenta: null,
+        mesa: null,
+        cliente: "",
+        mesero: "",
+        total: null
+      },
       productos: [
         {
           categoria: "bebidas",
@@ -120,13 +155,12 @@ export default {
     },
     setProductos(producto, index) {
       let registro = { producto: "", precio: "", cantidad: null };
-      
-        registro.producto = producto.producto;
-        registro.precio = producto.precio;
-        registro.cantidad = producto.cantidad;
-        console.log(JSON.parse(JSON.stringify(registro)));
-        console.log(JSON.parse(JSON.stringify(this.resumen)));
-      
+
+      registro.producto = producto.producto;
+      registro.precio = producto.precio;
+      registro.cantidad = producto.cantidad;
+      console.log(JSON.parse(JSON.stringify(registro)));
+      console.log(JSON.parse(JSON.stringify(this.resumen)));
 
       return registro;
     },
@@ -153,3 +187,20 @@ export default {
   }
 };
 </script>
+
+<style>
+.container {
+  padding: 0%;
+  margin-top: 5px;
+}
+
+.flex {
+  padding-left: 1%;
+  padding-right: 1%;
+}
+
+.v-text-field {
+  padding-top: 0%;
+}
+</style>
+
