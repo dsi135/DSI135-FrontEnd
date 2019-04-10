@@ -32,7 +32,7 @@
               </v-list-tile>
             </template>
 
-            <v-list-tile @click="true">
+            <v-list-tile @click="$router.push('/productos')">
               <v-list-tile-title>Productos</v-list-tile-title>
               <v-list-tile-action>
                 <v-icon>fastfood</v-icon>
