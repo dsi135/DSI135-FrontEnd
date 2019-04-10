@@ -39,7 +39,7 @@
               </v-list-tile-action>
             </v-list-tile>
 
-            <v-list-tile @click="true">
+            <v-list-tile @click="$router.push('/categorias')">
               <v-list-tile-title>Categorias</v-list-tile-title>
               <v-list-tile-action>
                 <v-icon>category</v-icon>

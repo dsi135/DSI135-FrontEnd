@@ -37,6 +37,11 @@ export default new Router({
       path: '/productos',
       name: 'producto',
       component: () => import('@/components/Producto.vue')
+    },
+    {
+      path: '/categorias',
+      name: 'categoria',
+      component: () => import('@/components/Categoria.vue')
     }
 
   ]

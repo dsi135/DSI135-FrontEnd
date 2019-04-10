@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div >
+    <div>
       <v-data-table :headers="headers" :items="productos" class="elevation-1">
         <template v-slot:items="props">
           <td>{{ props.item.product }}</td>
@@ -86,25 +86,18 @@ export default {
     };
   },
   methods: {
-    renderizar(index) {
-      this.apartados.forEach(apartado => {
-        apartado.render = false;
-      });
-      this.apartados[index].render = true;
-    },
-    Obtenercategorias() {
-      this.categorias = this.productos.categoria;
-    },
     guardar(prducto, pre, catgo) {
-      let registro = { product: "", precio: "", categoria: "" };
-      registro.product = prducto;
-      registro.precio = pre;
-      registro.categoria = catgo;
-      this.productos.push(registro);
-      this.nuevo = false;
-      this.produc = null;
-      this.preci = null;
-      this.cat = null;
+      if (prducto != null && pre != null && catgo != null) {
+        let registro = { product: "", precio: "", categoria: "" };
+        registro.product = prducto;
+        registro.precio = pre;
+        registro.categoria = catgo;
+        this.productos.push(registro);
+        this.nuevo = false;
+        this.produc = null;
+        this.preci = null;
+        this.cat = null;
+      }
     }
   }
 };
