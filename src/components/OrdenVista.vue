@@ -11,7 +11,14 @@
           </v-layout>
         </v-card-text>
       </v-card>
-      <v-data-table :headers="headers" :items="productos" class="elevation-1">
+      <v-data-table
+        :headers="headers"
+        :items="productos"
+        hide-actions
+        :search="search"
+        :pagination.sync="pagination"
+        class="elevation-1"
+      >
         <template v-slot:items="productos">
           <td>{{ productos.item.cantidad }}</td>
           <td>{{ productos.item.producto }}</td>
@@ -22,14 +29,15 @@
           <v-alert :value="true" icon="warning">Aun no elije productos</v-alert>
         </template>
       </v-data-table>
-       
-            
-        
-      <v-layout row wrap>
+      <v-layout row align-center justify-center>
+        <v-pagination v-model="pagination.page" :length="pages"></v-pagination>
+      </v-layout>
+
+      <v-layout row wrap justify-center align-center>
         <v-flex xs9>
           <v-btn flat @click="guardar(), $router.push('dashboard')">GUARDAR</v-btn>
         </v-flex>
-        <v-flex xs3 offset-xs9 class="text-xs-center">
+        <v-flex xs3 class="text-xs-center">
           <b>Total ${{total()}}</b>
         </v-flex>
         <v-flex xs12>
@@ -41,7 +49,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState } from "vuex";
 export default {
   data() {
     return {
@@ -50,7 +58,10 @@ export default {
         { text: "Producto", sortable: false, value: "producto" },
         { text: "Precio", sortable: false, value: "precio" },
         { text: "Subtotal", sortable: false, value: "subtotal" }
-      ]
+      ],
+      search: "",
+      pagination: {},
+      selected: []
     };
   },
   methods: {
@@ -63,14 +74,21 @@ export default {
       this.detalles.total = resultado;
       return resultado;
     },
-    guardar(){
+    guardar() {
+      this.detalles.resumen = this.productos;
       this.cuentas.push(this.detalles);
-      this.footer.alert= true;
+      this.footer.alert = true;
     }
   },
-  computed:{
-    ...mapState(['cuentas', 'footer'])
+  computed: {
+    ...mapState(["cuentas", "footer"]),
+    pages() {
+      if (this.pagination.rowsPerPage == null || this.tamanio == null) return 0;
+
+      //console.log(this.tamanio / this.pagination.rowsPerPage);
+      return Math.ceil(this.tamanio / this.pagination.rowsPerPage);
+    }
   },
-  props: ["productos", "detalles"]
+  props: ["productos", "detalles", "tamanio"]
 };
 </script>

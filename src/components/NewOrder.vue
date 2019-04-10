@@ -60,7 +60,7 @@
         </v-list>
       </v-flex>
       <v-flex xs6>
-        <vista :productos="resumen" :detalles="detalle"/>
+        <vista :productos="resumen" :detalles="detalle" :tamanio="tamanio"/>
       </v-flex>
     </v-layout>
 
@@ -79,6 +79,7 @@ export default {
       search: "",
       resumen: [],
       categoria: 0,
+      tamanio: 0,
       categorias: ["bebidas", "principal", "postre"],
       producto: null,
       detalle: {
@@ -86,7 +87,8 @@ export default {
         mesa: null,
         cliente: "",
         mesero: "",
-        total: null
+        total: null,
+        resumen: []
       },
       productos: [
         {
@@ -151,7 +153,7 @@ export default {
     },
     setCategoria(categoria) {
       this.categoria = categoria;
-      console.log(this.categoria);
+      //console.log(this.categoria);
     },
     setProductos(producto, index) {
       let registro = { producto: "", precio: "", cantidad: null };
@@ -159,8 +161,8 @@ export default {
       registro.producto = producto.producto;
       registro.precio = producto.precio;
       registro.cantidad = producto.cantidad;
-      console.log(JSON.parse(JSON.stringify(registro)));
-      console.log(JSON.parse(JSON.stringify(this.resumen)));
+      //console.log(JSON.parse(JSON.stringify(registro)));
+      //console.log(JSON.parse(JSON.stringify(this.resumen)));
 
       return registro;
     },
@@ -182,7 +184,8 @@ export default {
       });
 
       this.resumen = this.resumen.filter(producto => producto.cantidad !== 0);
-      console.log(JSON.parse(JSON.stringify(this.resumen)));
+      this.tamanio = this.resumen.length;
+     // console.log(JSON.parse(JSON.stringify(this.resumen)));
     }
   }
 };

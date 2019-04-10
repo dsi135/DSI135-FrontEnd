@@ -29,6 +29,11 @@ export default new Router({
       component: () => import('@/components/NewOrder.vue')
     },
     {
+      path: '/editarorden',
+      name: 'editarorden',
+      component: () => import('@/components/EditarOrden.vue')
+    },
+    {
       path: '/personalizar',
       name: 'custom',
       component: () => import('@/components/Personalizar.vue')
