@@ -7,20 +7,18 @@
             <v-form>
               <v-layout row>
                 <v-flex xs2>
-                  <v-text-field v-model="detalle.cuenta" label="Orden:" required></v-text-field>
+                  <v-text-field v-model=" cuentaEdit[0].cuenta" label="Orden:" required></v-text-field>
                 </v-flex>
-
                 <v-flex xs5>
-                  <v-text-field v-model="detalle.mesero" label="Mesero:" required></v-text-field>
+                  <v-text-field v-model="cuentaEdit[0].mesero" label="Mesero:" required></v-text-field>
                 </v-flex>
-
                 <v-flex xs5>
-                  <v-text-field v-model="detalle.cliente" label="Cliente:" required></v-text-field>
+                  <v-text-field v-model="cuentaEdit[0].cliente" label="Cliente:" required></v-text-field>
                 </v-flex>
               </v-layout>
               <v-layout row>
                 <v-flex xs3>
-                  <v-text-field v-model="detalle.mesa" label="Mesa:" required></v-text-field>
+                  <v-text-field v-model="cuentaEdit[0].mesa" label="Mesa:" required></v-text-field>
                 </v-flex>
                 <v-flex xs9>
                   <v-text-field label="Seleccione un Producto" v-model="search"></v-text-field>
@@ -60,10 +58,9 @@
         </v-list>
       </v-flex>
       <v-flex xs6>
-        <vista :productos="resumen[0]" :detalles="detalle" :tamanio="tamanio"/>
+        <vista :productos="cuentaEdit[0].resumen" :detalles="cuentaEdit[0]" :tamanio="tamanio"/>
       </v-flex>
     </v-layout>
-
   </v-container>
 </template>
 
@@ -133,7 +130,7 @@ export default {
         });
       }
     },
-     ...mapState(["resumen"])
+    ...mapState(["cuentas", "cuentaEdit"])
   },
   methods: {
     aumentar(index, s) {
@@ -168,13 +165,15 @@ export default {
     },
     addProducto(registro) {
       if (
-        !this.resumen[0].some(producto => producto.producto === registro.producto)
+        !this.cuentaEdit[0].resumen.some(
+          producto => producto.producto === registro.producto
+        )
       ) {
-        this.resumen[0].push(registro);
+        this.cuentaEdit[0].resumen.push(registro);
       }
     },
     setCantidad(registro, producto) {
-      this.resumen[0].forEach(producto => {
+      this.cuentaEdit[0].resumen.forEach(producto => {
         if (
           producto.producto === registro.producto &&
           producto.cantidad !== registro.cantidad
@@ -183,10 +182,32 @@ export default {
         }
       });
 
-      this.resumen[0] = this.resumen[0].filter(producto => producto.cantidad !== 0);
-      this.tamanio = this.resumen[0].length;
-     // console.log(JSON.parse(JSON.stringify(this.resumen)));
+      this.cuentaEdit[0].resumen = this.cuentaEdit[0].resumen.filter(
+        producto => producto.cantidad !== 0
+      );
+      this.tamanio = this.cuentaEdit[0].resumen.length;
+      // console.log(JSON.parse(JSON.stringify(this.resumen)));
+    },
+    init() {
+      for (let i = 0; i < this.productos.length; i++) {
+        for (let j = 0; j < this.productos[i].productos.length; j++) {
+          for (let k = 0; k < this.cuentaEdit[0].resumen.length; k++) {
+            if (
+              this.cuentaEdit[0].resumen[k].producto ===
+              this.productos[i].productos[j].producto
+            ) {
+              this.productos[i].productos[
+                j
+              ].cantidad = this.cuentaEdit[0].resumen[k].cantidad;
+            }
+          }
+          //console.log(JSON.stringify(this.productos[i].productos[j]));
+        }
+      }
     }
+  },
+  mounted() {
+    this.init();
   }
 };
 </script>

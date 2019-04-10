@@ -62,11 +62,8 @@
       </template>
     </v-data-table>
     <v-layout align-center justify-center row fill-height>
-      <v-flex xs2 offset-xs6>
+      <v-flex xs2 offset-xs8>
         <v-btn flat @click="$router.push('nuevaorden')">NUEVA ORDEN</v-btn>
-      </v-flex>
-      <v-flex xs2>
-        <v-btn flat @click="test()">EDITAR ORDEN</v-btn>
       </v-flex>
       <v-flex xs2>
         <v-btn color="error">IMPRIMIR</v-btn>
@@ -106,16 +103,15 @@ export default {
     };
   },
   computed: {
-    ...mapState(["cuentas", "footer", "resumen"])
+    ...mapState(["cuentas", "footer","cuentaEdit"])
   },
   methods: {
     editCuenta(orden) {
-      for (let i = 0; i < this.resumen.length; i++) {
-        this.resumen.splice(0);
+      for (let i = 0; i < this.cuentaEdit.length; i++) {
+        this.cuentaEdit.splice(0);
       }
 
-      this.resumen.push(orden.resumen);
-      
+      this.cuentaEdit.push(orden);
     },
     ModalCobro(orden) {
       this.dialog = true;

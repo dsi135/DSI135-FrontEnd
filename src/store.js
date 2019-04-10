@@ -21,11 +21,8 @@ export default new Vuex.Store({
       dark: true,
       alert: false
     },
-    cuentas: [
-
-    ],
-    resumen: [],
-    
+    cuentas: [],
+    cuentaEdit: []
   },
   mutations: {
 

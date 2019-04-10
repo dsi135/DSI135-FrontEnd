@@ -75,6 +75,9 @@ export default {
       return resultado;
     },
     guardar() {
+      if (this.cuentas.indexOf(this.detalles) >= 0) {
+        this.cuentas.splice(this.cuentas.indexOf(this.detalles), 1);
+      }
       this.detalles.resumen = this.productos;
       this.cuentas.push(this.detalles);
       this.footer.alert = true;
