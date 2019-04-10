@@ -32,6 +32,11 @@ export default new Router({
       path: '/personalizar',
       name: 'custom',
       component: () => import('@/components/Personalizar.vue')
+    },
+    {
+      path: '/productos',
+      name: 'producto',
+      component: () => import('@/components/Producto.vue')
     }
 
   ]
