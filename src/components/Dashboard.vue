@@ -8,11 +8,9 @@
 
     <v-dialog v-model="dialog" persistent max-width="290">
       <v-card>
-        <v-card-title class="headline" >
+        <v-card-title class="headline">
           <v-layout align-center justify-center row fill-height>
-            <v-flex style="text-align: center;">
-              CUENTA N:{{cobrarIndex.cuenta}}
-            </v-flex>
+            <v-flex style="text-align: center;">CUENTA N:{{cobrarIndex.cuenta}}</v-flex>
           </v-layout>
         </v-card-title>
         <v-layout justify-center fill-height column>
@@ -51,6 +49,11 @@
         <td>{{ props.item.mesero }}</td>
         <td>{{ props.item.total }}</td>
         <td class="justify-center layout px-0">
+          <v-icon
+            small
+            class="mr-2"
+            @click="editCuenta(props.item);$router.push('editarorden');"
+          >edit</v-icon>
           <v-icon small class="mr-2" @click="ModalCobro(props.item)">payment</v-icon>
         </td>
       </template>
@@ -103,11 +106,16 @@ export default {
     };
   },
   computed: {
-    ...mapState(["cuentas", "footer"])
+    ...mapState(["cuentas", "footer", "resumen"])
   },
   methods: {
-    test() {
-      console.log(JSON.stringify(this.cuentas));
+    editCuenta(orden) {
+      for (let i = 0; i < this.resumen.length; i++) {
+        this.resumen.splice(0);
+      }
+
+      this.resumen.push(orden.resumen);
+      
     },
     ModalCobro(orden) {
       this.dialog = true;
