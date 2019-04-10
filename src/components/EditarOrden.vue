@@ -196,9 +196,7 @@ export default {
               this.cuentaEdit[0].resumen[k].producto ===
               this.productos[i].productos[j].producto
             ) {
-              this.productos[i].productos[
-                j
-              ].cantidad = this.cuentaEdit[0].resumen[k].cantidad;
+              this.productos[i].productos[j].cantidad = this.cuentaEdit[0].resumen[k].cantidad;
             }
           }
           //console.log(JSON.stringify(this.productos[i].productos[j]));

@@ -47,7 +47,7 @@
             </v-list-tile>
           </v-list-group>
 
-          <v-list-tile @click="true">
+          <v-list-tile @click="$router.push('/estadisticas')">
             <v-list-tile-action>
               <v-icon>assessment</v-icon>
             </v-list-tile-action>

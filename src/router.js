@@ -47,6 +47,11 @@ export default new Router({
       path: '/categorias',
       name: 'categoria',
       component: () => import('@/components/Categoria.vue')
+    },
+    {
+      path: '/estadisticas',
+      name: 'estadisticas',
+      component: () => import('@/components/Estadisticas.vue')
     }
 
   ]
