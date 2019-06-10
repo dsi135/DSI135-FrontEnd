@@ -52,7 +52,13 @@ export default new Router({
       path: '/estadisticas',
       name: 'estadisticas',
       component: () => import('@/components/Estadisticas.vue')
+    },
+    {
+      path: '/ticket',
+      name: 'ticket',
+      component: () => import('@/components/Ticket.vue')
     }
+    
 
   ]
 })

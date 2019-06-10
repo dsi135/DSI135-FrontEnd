@@ -66,7 +66,7 @@
         <v-btn flat @click="$router.push('nuevaorden')">NUEVA ORDEN</v-btn>
       </v-flex>
       <v-flex xs2>
-        <v-btn color="error">IMPRIMIR</v-btn>
+        <v-btn color="error" @click="$router.push('/ticket')">IMPRIMIR</v-btn>
       </v-flex>
     </v-layout>
     <v-alert
