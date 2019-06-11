@@ -1,5 +1,40 @@
 <template>
   <v-layout>
+    <v-dialog v-model="dialog" persistent max-width="290">
+      <v-card>
+        <v-card-title class="headline">
+          <v-layout align-center justify-center row fill-height>
+            <v-flex style="text-align: center;">CUENTA N:{{cobrarIndex.cuenta}}</v-flex>
+          </v-layout>
+        </v-card-title>
+        <v-layout justify-center fill-height column>
+          <v-layout row align-center justify-center>
+            <v-flex xs6>TOTAL:</v-flex>
+            <v-flex xs6>{{cobrarIndex.total}}</v-flex>
+          </v-layout>
+          <br>
+          <v-layout row align-center justify-center>
+            <v-flex xs6>PAGO:</v-flex>
+            <v-flex xs6>
+              <v-text-field v-model="pago" label="PAGO" single-line></v-text-field>
+            </v-flex>
+          </v-layout>
+          <br>
+          <v-layout row align-center justify-center>
+            <v-flex xs6>CAMBIO:</v-flex>
+            <v-flex xs6>{{pago - cobrarIndex.total | negativos}}</v-flex>
+          </v-layout>
+        </v-layout>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="green darken-1" flat @click="dialog = false">CANCELAR</v-btn>
+          <v-btn color="green darken-1" flat @click="cobrarOrden(cobrarIndex)">COBRAR</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <v-snackbar v-model="snackbar" :timeout="1000">INGRESE DATOS.</v-snackbar>
+
     <v-flex xs12 offset-xs1>
       <v-card class="mx-auto" height="95px">
         <v-card-text>
@@ -36,6 +71,7 @@
       <v-layout row wrap justify-center align-center>
         <v-flex xs9>
           <v-btn flat @click="guardar(), $router.push('dashboard')">GUARDAR</v-btn>
+          <v-btn color="error" v-show="footer.modoMesa" @click="guardar(); ModalCobro(detalles)">cobrar</v-btn>
         </v-flex>
         <v-flex xs3 class="text-xs-center">
           <b>Total ${{total()}}</b>
@@ -61,7 +97,11 @@ export default {
       ],
       search: "",
       pagination: {},
-      selected: []
+      selected: [],
+      dialog: false,
+      pago: null,
+      snackbar: false,
+      cobrarIndex: []
     };
   },
   methods: {
@@ -81,6 +121,20 @@ export default {
       this.detalles.resumen = this.productos;
       this.cuentas.push(this.detalles);
       this.footer.alert = true;
+    },
+    ModalCobro(orden) {
+      this.dialog = true;
+      console.log(JSON.stringify(orden));
+      this.cobrarIndex = orden;
+    },
+    cobrarOrden(orden) {
+      if (orden.total < this.pago) {
+        this.dialog = false;
+        this.cuentas.splice(this.cuentas.indexOf(orden), 1);
+        this.$router.push('dashboard');
+      } else {
+        this.snackbar = true;
+      }
     }
   },
   computed: {
@@ -88,8 +142,13 @@ export default {
     pages() {
       if (this.pagination.rowsPerPage == null || this.tamanio == null) return 0;
 
-      //console.log(this.tamanio / this.pagination.rowsPerPage);
+      console.log(this.tamanio / this.pagination.rowsPerPage);
       return Math.ceil(this.tamanio / this.pagination.rowsPerPage);
+    }
+  },
+  filters: {
+    negativos: function(value) {
+      return value < 0 ? 0.0 : value;
     }
   },
   props: ["productos", "detalles", "tamanio"]

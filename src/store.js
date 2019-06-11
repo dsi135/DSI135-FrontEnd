@@ -19,7 +19,8 @@ export default new Vuex.Store({
     footer: {
       inset: false,
       dark: true,
-      alert: false
+      alert: false,
+      modoMesa: false
     },
     cuentas: [],
     cuentaEdit: []

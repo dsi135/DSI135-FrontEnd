@@ -9,6 +9,10 @@
                     <span>Scheme</span>
                     <v-switch v-model="footer.dark" primary label="Dark"></v-switch>
                   </v-flex>
+                  <v-flex xs12 md6>
+                    <span>Modo caja</span>
+                    <v-switch v-model="footer.modoMesa" primary label="activar"></v-switch>
+                  </v-flex>
 
                   <v-flex xs12 md6>
                     <span>Drawer</span>
