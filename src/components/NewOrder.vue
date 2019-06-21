@@ -35,7 +35,7 @@
                       v-for="(categoria, index) in categorias"
                       :key="index"
                       ripple
-                      @click="setCategoria(index)"
+                      @click="setCategoria(categoria)"
                     >{{ categoria }}</v-tab>
                   </v-tabs>
                 </template>
@@ -47,7 +47,7 @@
         <v-list>
           <v-list-tile v-for="(producto, index) in filter" :key="index" ripple>
             <v-list-tile-content>
-              <v-list-tile-title>{{producto.producto}}</v-list-tile-title>
+              <v-list-tile-title>{{producto.nombre}}</v-list-tile-title>
             </v-list-tile-content>
             <v-btn flat icon @click="disminuir(index,producto)">
               <v-icon>remove</v-icon>
@@ -69,6 +69,8 @@
 
 <script>
 import OrdenVista from "@/components/OrdenVista";
+import restMethods from "../restMethods.js";
+const rest = new restMethods();
 export default {
   components: {
     vista: OrdenVista
@@ -78,11 +80,11 @@ export default {
       active: null,
       search: "",
       resumen: [],
-      categoria: 0,
+      categoria: "Bebidas",
       tamanio: 0,
             
-      categorias: ["bebidas", "principal", "postre"],
-      producto: null,
+      categorias: this.getCategorias(),
+      producto: { nombre: "", precio: 0.0, cantidad: 0},
       detalle: {
         cuenta: null,
         mesa: null,
@@ -91,52 +93,60 @@ export default {
         total: null,
         resumen: []
       },
-      productos: [
-        {
-          categoria: "bebidas",
-          productos: [
-            { producto: "pepsi", precio: "1.00", cantidad: 0 },
-            { producto: "coca cola", precio: "1.00", cantidad: 0 },
-            { producto: "suprema", precio: "1.50", cantidad: 0 },
-            { producto: "vodka", precio: "7.00", cantidad: 0 },
-            { producto: "michelada", precio: "5.25", cantidad: 0 }
-          ]
-        },
-        {
-          categoria: "principal",
-          productos: [
-            { producto: "carne", precio: "5.00", cantidad: 0 },
-            { producto: "pollo agridulce", precio: "6.75", cantidad: 0 },
-            { producto: "sopa de patas", precio: "5.00", cantidad: 0 },
-            { producto: "alitas", precio: "6.99", cantidad: 0 },
-            { producto: "pizza", precio: "12.99", cantidad: 0 }
-          ]
-        },
-        {
-          categoria: "postres",
-          productos: [
-            { producto: "brownie", precio: "5.00", cantidad: 0 },
-            { producto: "cheesecake", precio: "3.00", cantidad: 0 },
-            { producto: "tres leches", precio: "2.00", cantidad: 0 },
-            { producto: "crepa de nutella", precio: "4.50", cantidad: 0 }
-          ]
-        }
-      ]
+      productos: [],
+      articulos: []
     };
+  },
+  created(){
+    this.getProductos();
   },
   computed: {
     filter() {
-      if (this.productos != null) {
+      if (this.articulos != null) {
         //console.log(JSON.stringify(this.productos[this.categoria].productos));
-        return this.productos[this.categoria].productos.filter(producto => {
-          return producto.producto
-            .toLowerCase()
-            .includes(this.search.toLowerCase());
-        });
+        let filtrados = this.articulos.filter(producto => producto.categoria === this.categoria);
+        return filtrados.filter(producto => producto.nombre.toLowerCase().includes(this.search.toLowerCase()));
       }
     }
   },
   methods: {
+    armarResumen(){
+       this.articulos = this.productos.map(producto =>{
+          return {
+            nombre: producto.nombre,
+            precio: producto.precio,
+            cantidad: 0,
+            categoria: producto.categoria.nombre
+          }
+        });
+        console.log(JSON.stringify(this.articulos))
+    },
+     getCategorias(){
+      rest.getJson('categorias').
+        then(r=>{
+          let f= r.data.map(m=>{
+            return m.nombre;
+          });
+          this.categorias = f;
+          //console.log(this.categorias);
+        }).catch(e=>{
+          this.categorias = [""];
+        });
+        
+    },
+    getProductos(){
+      rest.getJson('productos').
+        then(r=>{
+          let f= r.data.map(m=>{
+            return m;
+          });
+          this.productos = f;
+          this.armarResumen();
+          //console.log(this.productos);
+        }).catch(e=>{
+          this.productos = [""];
+        });
+    },
     aumentar(index, s) {
       if (s.cantidad >= 0) {
         s.cantidad++;
@@ -154,12 +164,12 @@ export default {
     },
     setCategoria(categoria) {
       this.categoria = categoria;
-      //console.log(this.categoria);
+      console.log(this.categoria);
     },
     setProductos(producto, index) {
       let registro = { producto: "", precio: "", cantidad: null };
 
-      registro.producto = producto.producto;
+      registro.producto = producto.nombre;
       registro.precio = producto.precio;
       registro.cantidad = producto.cantidad;
       //console.log(JSON.parse(JSON.stringify(registro)));
