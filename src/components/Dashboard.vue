@@ -49,12 +49,8 @@
         <td>{{ props.item.mesero }}</td>
         <td>{{ props.item.total }}</td>
         <td class="justify-center layout px-0">
-          <v-icon
-            small
-            class="mr-2"
-            @click="editCuenta(props.item);$router.push('editarorden');"
-          >edit</v-icon>
-          <v-icon small class="mr-2" @click="ModalCobro(props.item)">payment</v-icon>
+          <v-icon class="mr-2" @click="editCuenta(props.item);$router.push('editarorden');">edit</v-icon>
+          <v-icon class="mr-2" v-show="!footer.modoMesa" @click="ModalCobro(props.item)">payment</v-icon>
         </td>
       </template>
       <template v-slot:no-data>
@@ -102,6 +98,7 @@ export default {
   },
   computed: {
     ...mapState(["cuentas", "footer","cuentaEdit", "cuentaTicket"])
+
   },
   methods: {
     editCuenta(orden) {

@@ -34,13 +34,15 @@
   </div>
 </template>
 <script>
+import restMethods from "./../restMethods.js";
+const rm = new restMethods();
 export default {
   name: "Categoria",
   data() {
     return {
       nuevo: false,
       cat: null,
-      categorias: ["bebidas", "principal", "postres"],
+      categorias: this.getcategorias(),
       headers: [
         { text: "Categoria", value: "categorias" }
       ]
@@ -53,6 +55,10 @@ export default {
       this.nuevo = false;
       this.cat = null;
      }
+    },
+    getcategorias(){
+      // test
+      return ['d'];
     }
   }
 };

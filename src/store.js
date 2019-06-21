@@ -27,7 +27,17 @@ export default new Vuex.Store({
         cuentas: [],
         cuentaEdit: []
     },
-    mutations: {
+
+    footer: {
+      inset: false,
+      dark: true,
+      alert: false,
+      modoMesa: false
+    },
+    cuentas: [],
+    cuentaEdit: []
+  },
+  mutations: {
 
     },
     actions: {

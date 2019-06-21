@@ -80,6 +80,7 @@ export default {
       resumen: [],
       categoria: 0,
       tamanio: 0,
+            
       categorias: ["bebidas", "principal", "postre"],
       producto: null,
       detalle: {
