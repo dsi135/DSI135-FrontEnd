@@ -118,7 +118,7 @@ export default {
         this.dialog = false;
         this.cuentaTicket.cuenta = orden;
         console.log(JSON.stringify(this.cuentaTicket.cuenta));
-       // this.cuentas.splice(this.cuentas.indexOf(orden), 1);
+        this.cuentas.splice(this.cuentas.indexOf(orden), 1);
       } else {
         this.snackbar = true;
       }
