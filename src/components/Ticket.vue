@@ -2,29 +2,38 @@
   <div class="ticket">
     <p class="centrado">
       Pupuseria la bendicion de DIO
-      <br>{{Date()}}
+     </p>
+     <p class="izquierda">
+      <br>{{new Date().toLocaleString()}}
+      <br>Cuenta: {{this.cuentaTicket.cuenta.cuenta}}
+      <br>Mesa: {{this.cuentaTicket.cuenta.mesa}}
+      <br>Mesero: {{this.cuentaTicket.cuenta.mesero}}
+
     </p>
     <table>
       <thead>
         <tr>
-          <th class="cantidad">CANT</th>
+          <th class="cantidad">CANTIDAD</th>
           <th class="producto">PRODUCTO</th>
           <th class="precio">$$</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(producto, index) in this.cuentas[0].resumen" :key="index">
+        <tr v-for="(producto, index) in this.cuentaTicket.cuenta.resumen" :key="index">
           <td class="cantidad">{{producto.cantidad}}</td>
           <td class="producto">{{producto.producto}}</td>
           <td class="precio">{{producto.precio}}</td>
         </tr>
       </tbody>
     </table>
-    <p class="centrado">
+
+    <p class="izquierda">
+     Total:            {{this.cuentaTicket.cuenta.total}}
+      <br>
       ¡GRACIAS POR SU COMPRA!
-      <br>appsperfectas.com
     </p>
     <button class="oculto-impresion" id="btnImprimir" @click="imprimirElemento()">Imprimir</button>
+
   </div>
 </template>
 
@@ -33,15 +42,11 @@ import { mapState } from "vuex";
 export default {
   data() {
     return {
-      people: [
-      {id: 3, name: 'Bob', age: 27},
-      {id: 4, name: 'Frank', age: 32},
-      {id: 5, name: 'Joe', age: 38}
-    ]
+      
     };
   },
   computed: {
-    ...mapState(["cuentas", "footer","cuentaEdit"])
+    ...mapState(["cuentas", "footer","cuentaEdit", "cuentaTicket"])
   },
   methods: {
     imprimirElemento() {
@@ -73,7 +78,6 @@ export default {
     display: none !important;
   }
 }
-
 
 td,
 th,
@@ -108,10 +112,15 @@ th.precio {
   align-content: center;
 }
 
+.izquierda {
+  text-align: left;
+  align-content: left;
+}
+
 .ticket {
   width: 155px;
   max-width: 155px;
-   font-size: 12px;
+   font-size: 15px;
   font-family: "Times New Roman";
 }
 
