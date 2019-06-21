@@ -70,14 +70,14 @@
 
       <v-layout row wrap justify-center align-center>
         <v-flex xs9>
-          <v-btn flat @click="guardar(), $router.push('dashboard')">GUARDAR</v-btn>
+          <v-btn flat @click="guardar()">GUARDAR</v-btn>
           <v-btn color="error" v-show="footer.modoMesa" @click="guardar(); ModalCobro(detalles)">cobrar</v-btn>
         </v-flex>
         <v-flex xs3 class="text-xs-center">
           <b>Total ${{total()}}</b>
         </v-flex>
         <v-flex xs12>
-          <v-text-field label="Observaciones" single-line></v-text-field>
+          <v-text-field v-model="obeservaciones" label="Observaciones" single-line></v-text-field>
         </v-flex>
       </v-layout>
     </v-flex>
@@ -86,6 +86,8 @@
 
 <script>
 import { mapState } from "vuex";
+import restMethods from "../restMethods.js";
+const rest = new restMethods();
 export default {
   data() {
     return {
@@ -101,7 +103,8 @@ export default {
       dialog: false,
       pago: null,
       snackbar: false,
-      cobrarIndex: []
+      cobrarIndex: [],
+      obeservaciones: ""
     };
   },
   methods: {
@@ -115,12 +118,21 @@ export default {
       return resultado;
     },
     guardar() {
-      if (this.cuentas.indexOf(this.detalles) >= 0) {
-        this.cuentas.splice(this.cuentas.indexOf(this.detalles), 1);
-      }
+      if (this.detalles !== null && this.productos.length > 0) {
+         if (this.cuentas.indexOf(this.detalles) >= 0) {
+           this.cuentas.splice(this.cuentas.indexOf(this.detalles), 1);
+          }
+      
       this.detalles.resumen = this.productos;
       this.cuentas.push(this.detalles);
+      console.log(this.productos);
+      rest.postJson(`ordenes?mesa=${this.detalles.mesa}&&cliente=${this.detalles.cliente}
+                    &&mesero=${this.detalles.mesero}&&observaciones=${this.observaciones}`,this.productos);
+      this.$router.push('dashboard');
       this.footer.alert = true;
+      } else {
+        this.snackbar = true;
+      }
     },
     ModalCobro(orden) {
       this.dialog = true;
