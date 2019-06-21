@@ -105,7 +105,39 @@ export default {
     ...mapState(["cuentas", "footer","cuentaEdit", "cuentaTicket"])
 
   },
+  created(){
+    this.getOrdenes();
+  },
   methods: {
+    getOrdenes(){
+      this.cuentas.splice(0, this.cuentas.length);
+       rm.getJson('ordenes/rango')
+      .then(r =>{
+        let f= r.data.map(m=>{
+            this.cuentas.push(m);
+            return m;
+          });
+          
+        console.log(f);
+      }).catch(e=>{
+        });
+
+     rm.getJson('detalleorden')
+    .then(r =>{
+        let f= r.data.map(m=>{
+            return m;
+          });
+          let temp = this.cuentas
+          temp.foreach((cuenta, index) => {
+          console.log(cuenta);
+            cuenta.resumen = f[index];
+          });
+          console.log(temp);
+        
+      }).catch(e=>{
+        });
+      
+    },
     editCuenta(orden) {
       for (let i = 0; i < this.cuentaEdit.length; i++) {
         this.cuentaEdit.splice(0);
