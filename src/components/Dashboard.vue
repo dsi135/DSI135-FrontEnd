@@ -73,10 +73,15 @@
 </template>
 
 <script>
+import restMethods from "./../restMethods.js";
+const rm = new restMethods();
 import { mapState } from "vuex";
 export default {
   data() {
     return {
+      init: {
+        0: this.verifyModo()
+      },
       search: "",
       dialog: false,
       pago: null,
@@ -122,6 +127,13 @@ export default {
       } else {
         this.snackbar = true;
       }
+    },
+    verifyModo(){
+      rm.getJson('parametros/1').then(r=>{
+        this.footer.modoMeda = r.data.valor;
+        console.log(this.footer.modoMeda);
+         
+      });
     }
   },
   filters: {

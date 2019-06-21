@@ -3,6 +3,8 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
+import restMethods from "./restMethods.js";
+const rm = new restMethods();
 export default new Vuex.Store({
     state: {
 
