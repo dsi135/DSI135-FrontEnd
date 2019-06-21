@@ -8,13 +8,7 @@ export default class RestMethods {
 
     getJson(resource) {
         if (resource != null) {
-            Axios.get(this.baseUri + resource)
-            .then(response => {
-                this.json = response.data;
-
-                console.log(this.json);
-            });
-        return this.json;
+            return Axios.get(this.baseUri + resource);
         }
     }
 

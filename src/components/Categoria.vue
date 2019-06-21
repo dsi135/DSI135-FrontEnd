@@ -1,7 +1,7 @@
 <template>
   <div>
     <div >
-      <v-data-table :headers="headers" :items="categorias" class="elevation-1">
+      <v-data-table :headers="headers" :items="categorias" class="">
         <template v-slot:items="props">
           <td class="text-xs-center">{{ props.item }}</td>
         </template>
@@ -35,9 +35,9 @@
 </template>
 <script>
 import restMethods from "./../restMethods.js";
+import { log } from 'util';
 const rm = new restMethods();
 export default {
-  name: "Categoria",
   data() {
     return {
       nuevo: false,
@@ -51,14 +51,24 @@ export default {
   methods: {
     guardar(catgo) {
      if(catgo!=null){
-          this.categorias.push(catgo);
+      rm.postJson('categorias',{
+        id: null,
+        nombre: catgo
+      })
       this.nuevo = false;
       this.cat = null;
      }
     },
     getcategorias(){
-      // test
-      return ['d'];
+      rm.getJson('categorias').
+        then(r=>{
+          let f= r.data.map(m=>{
+            return m.nombre;
+          });
+          this.categorias = f;
+        }).catch(e=>{
+          this.categorias = [""];
+        });
     }
   }
 };
