@@ -34,7 +34,7 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="green darken-1" flat @click="dialog = false">CANCELAR</v-btn>
-          <v-btn color="green darken-1" flat @click="cobrarOrden(cobrarIndex)">COBRAR</v-btn>
+          <v-btn color="green darken-1" flat @click="cobrarOrden(cobrarIndex); $router.push('/ticket')">COBRAR</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -61,9 +61,7 @@
       <v-flex xs2 offset-xs8>
         <v-btn flat @click="$router.push('nuevaorden')">NUEVA ORDEN</v-btn>
       </v-flex>
-      <v-flex xs2>
-        <v-btn color="error">IMPRIMIR</v-btn>
-      </v-flex>
+      
     </v-layout>
     <v-alert
       :value="footer.alert"
@@ -99,7 +97,8 @@ export default {
     };
   },
   computed: {
-    ...mapState(["cuentas", "footer", "cuentaEdit"])
+    ...mapState(["cuentas", "footer","cuentaEdit", "cuentaTicket"])
+
   },
   methods: {
     editCuenta(orden) {
@@ -110,13 +109,16 @@ export default {
       this.cuentaEdit.push(orden);
     },
     ModalCobro(orden) {
+      console.log(JSON.stringify(orden));
       this.dialog = true;
       this.cobrarIndex = orden;
     },
     cobrarOrden(orden) {
       if (orden.total < this.pago) {
         this.dialog = false;
-        this.cuentas.splice(this.cuentas.indexOf(orden), 1);
+        this.cuentaTicket.cuenta = orden;
+        console.log(JSON.stringify(this.cuentaTicket.cuenta));
+       // this.cuentas.splice(this.cuentas.indexOf(orden), 1);
       } else {
         this.snackbar = true;
       }
