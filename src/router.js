@@ -57,6 +57,11 @@ export default new Router({
       path: '/ticket',
       name: 'ticket',
       component: () => import('@/components/Ticket.vue')
+    },
+    {
+      path: '/historial',
+      name: 'historial',
+      component: () => import('@/components/Historial.vue')
     }
     
 

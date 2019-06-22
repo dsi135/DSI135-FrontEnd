@@ -54,6 +54,13 @@
             <v-list-tile-title>Estadisticas</v-list-tile-title>
           </v-list-tile>
 
+          <v-list-tile @click="$router.push('/historial')">
+            <v-list-tile-action>
+              <v-icon>list_alt</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-title>Historial</v-list-tile-title>
+          </v-list-tile>
+
           <v-list-tile @click="$router.push('/personalizar')">
             <v-list-tile-action>
               <v-icon>settings</v-icon>

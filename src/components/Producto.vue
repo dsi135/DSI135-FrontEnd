@@ -19,7 +19,7 @@
             <td class="text-xs-center">{{ props.item.nombre }}</td>
             <td class="text-xs-center">${{ props.item.precio }}</td>
             <td class="text-xs-center">{{ props.item.categoria.nombre }}</td>
-            <td class="text-xs-center">{{ props.item.preparado }}</td>
+            <td class="text-xs-center">{{ props.item.preparado | preparado}}</td>
             <td class="justify-center layout px-0">
               <v-icon small class="mr-2" @click="editReg(props.item)">edit</v-icon>
             </td>
@@ -194,6 +194,11 @@ export default {
       this.cat = item.categoria.id;
       this.nuevo = true;
       this.editar = true;
+    }
+  },
+  filters:{
+    preparado: function (value) {
+      return value ? 'SI' : 'NO';
     }
   }
 };
