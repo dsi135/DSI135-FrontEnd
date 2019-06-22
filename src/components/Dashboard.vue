@@ -154,7 +154,9 @@ export default {
       if (orden.total < this.pago) {
         this.dialog = false;
         this.cuentaTicket.cuenta = orden;
-        console.log(JSON.stringify(this.cuentaTicket.cuenta));
+        //console.log(JSON.stringify(this.cuentaTicket.cuenta));
+        console.log(orden.cuenta);
+        rm.putJson('ordenes/finalizar/'+parseInt(orden.cuenta), { });
         this.cuentas.cuentas.splice(this.cuentas.cuentas.indexOf(orden), 1);
       } else {
         this.snackbar = true;

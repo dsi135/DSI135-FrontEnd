@@ -77,7 +77,7 @@
           <b>Total ${{total()}}</b>
         </v-flex>
         <v-flex xs12>
-          <v-text-field v-model="obeservaciones" label="Observaciones" single-line></v-text-field>
+          <v-text-field v-model="observaciones" label="Observaciones" single-line></v-text-field>
         </v-flex>
       </v-layout>
     </v-flex>
@@ -104,7 +104,7 @@ export default {
       pago: null,
       snackbar: false,
       cobrarIndex: [],
-      obeservaciones: ""
+      observaciones: ""
     };
   },
   methods: {
@@ -134,9 +134,8 @@ export default {
           }
         }
       })
-
-      console.log(detalleOrden);
-      rest.postJson(`detalleorden?mesero=${this.detalles.mesero}&&mesa=${this.detalles.mesa}&&cliente=${this.detalles.cliente}&&observaciones=${this.observaciones}`,this.productos);
+      console.log(detalleOrden)
+      rest.postJson(`detalleorden?mesero=${this.detalles.mesero}&&mesa=${this.detalles.mesa}&&cliente=${this.detalles.cliente}&&observaciones=${this.observaciones}`,detalleOrden);
       this.$router.push('dashboard');
       this.footer.alert = true;
       } else {
