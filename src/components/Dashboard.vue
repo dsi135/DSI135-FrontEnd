@@ -41,7 +41,7 @@
 
     <v-snackbar v-model="snackbar" :timeout="1000">INGRESE DATOS.</v-snackbar>
 
-    <v-data-table :headers="headers" :items="cuentas" :search="search">
+    <v-data-table :headers="headers" :items="cuentas.cuentas" :search="search">
       <template v-slot:items="props">
         <td>{{ props.item.cuenta }}</td>
         <td>{{ props.item.mesa }}</td>
@@ -110,30 +110,30 @@ export default {
   },
   methods: {
     getOrdenes(){
-      this.cuentas.splice(0, this.cuentas.length);
-       rm.getJson('ordenes/rango')
-      .then(r =>{
-        let f= r.data.map(m=>{
-            this.cuentas.push(m);
-            return m;
-          });
-          
-        console.log(f);
-      }).catch(e=>{
-        });
+      this.cuentas.cuentas = [];
 
-     rm.getJson('detalleorden')
-    .then(r =>{
-        let f= r.data.map(m=>{
-            return m;
-          });
-          let temp = this.cuentas
-          temp.foreach((cuenta, index) => {
-          console.log(cuenta);
-            cuenta.resumen = f[index];
-          });
-          console.log(temp);
-        
+       rm.getJson('ordenes')
+      .then(r =>{
+          this.cuentas.cuentas = r.data;
+      this.cuentas.cuentas = r.data.map(cuenta =>{
+        return  {
+           cuenta: cuenta.id,
+           mesa: cuenta.mesa,
+           cliente: cuenta.cliente,
+           mesero: cuenta.mesero,
+           total: cuenta.total,
+           resumen: cuenta.detalleOrdenList.map(detalle => {
+             return {
+                producto: detalle.producto1.nombre,
+                precio: detalle.producto1.precio,
+                cantidad: detalle.cantidad,
+                //categoria: detalle.producto1.categoria.nombre,
+                id: detalle.producto1.id
+             }
+           })
+        }
+      })
+        //console.log(JSON.stringify(this.cuentas.cuentas));
       }).catch(e=>{
         });
       
@@ -155,7 +155,7 @@ export default {
         this.dialog = false;
         this.cuentaTicket.cuenta = orden;
         console.log(JSON.stringify(this.cuentaTicket.cuenta));
-        this.cuentas.splice(this.cuentas.indexOf(orden), 1);
+        this.cuentas.cuentas.splice(this.cuentas.cuentas.indexOf(orden), 1);
       } else {
         this.snackbar = true;
       }

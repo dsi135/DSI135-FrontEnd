@@ -119,15 +119,24 @@ export default {
     },
     guardar() {
       if (this.detalles !== null && this.productos.length > 0) {
-         if (this.cuentas.indexOf(this.detalles) >= 0) {
-           this.cuentas.splice(this.cuentas.indexOf(this.detalles), 1);
+         if (this.cuentas.cuentas.indexOf(this.detalles) >= 0) {
+           this.cuentas.cuentas.splice(this.cuentas.cuentas.indexOf(this.detalles), 1);
           }
       
       this.detalles.resumen = this.productos;
-      this.cuentas.push(this.detalles);
-      console.log(this.productos);
-      rest.postJson(`ordenes?mesa=${this.detalles.mesa}&&cliente=${this.detalles.cliente}
-                    &&mesero=${this.detalles.mesero}&&observaciones=${this.observaciones}`,this.productos);
+      this.cuentas.cuentas.push(this.detalles);
+      let detalleOrden = this.productos.map(producto =>{
+        return {
+          cantidad: producto.cantidad,
+          producto1: {
+            id: producto.id,
+            precio: producto.precio
+          }
+        }
+      })
+
+      console.log(detalleOrden);
+      rest.postJson(`detalleorden?mesero=${this.detalles.mesero}&&mesa=${this.detalles.mesa}&&cliente=${this.detalles.cliente}&&observaciones=${this.observaciones}`,this.productos);
       this.$router.push('dashboard');
       this.footer.alert = true;
       } else {
@@ -154,7 +163,7 @@ export default {
     pages() {
       if (this.pagination.rowsPerPage == null || this.tamanio == null) return 0;
 
-      console.log(this.tamanio / this.pagination.rowsPerPage);
+      //console.log(this.tamanio / this.pagination.rowsPerPage);
       return Math.ceil(this.tamanio / this.pagination.rowsPerPage);
     }
   },

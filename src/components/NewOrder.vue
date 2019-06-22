@@ -116,10 +116,11 @@ export default {
             nombre: producto.nombre,
             precio: producto.precio,
             cantidad: 0,
-            categoria: producto.categoria.nombre
+            categoria: producto.categoria.nombre,
+            id: producto.id
           }
         });
-        console.log(JSON.stringify(this.articulos))
+        //console.log(JSON.stringify(this.articulos))
     },
      getCategorias(){
       rest.getJson('categorias').
@@ -164,14 +165,15 @@ export default {
     },
     setCategoria(categoria) {
       this.categoria = categoria;
-      console.log(this.categoria);
+      //console.log(this.categoria);
     },
     setProductos(producto, index) {
-      let registro = { producto: "", precio: "", cantidad: null };
+      let registro = { producto: "", precio: "", cantidad: null , id: null};
 
       registro.producto = producto.nombre;
       registro.precio = producto.precio;
       registro.cantidad = producto.cantidad;
+      registro.id = producto.id;
       //console.log(JSON.parse(JSON.stringify(registro)));
       //console.log(JSON.parse(JSON.stringify(this.resumen)));
 

@@ -26,10 +26,12 @@ export default new Vuex.Store({
         cuentaTicket: {
             cuenta: {}
         },
-        cuentas: [],
+        cuentas: {
+            cuentas: []
+        },
         cuentaEdit: []
     },
-  mutations: {
+    mutations: {
 
     },
     actions: {

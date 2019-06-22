@@ -116,7 +116,8 @@ export default {
             categoria: producto.categoria.nombre
           }
         });
-        console.log(JSON.stringify(this.articulos))
+        //console.log(JSON.stringify(this.articulos))
+        this.init();
     },
      getCategorias(){
       rest.getJson('categorias').
@@ -163,12 +164,13 @@ export default {
       this.categoria = categoria;
       //console.log(this.categoria);
     },
-    setProductos(producto, index) {
-      let registro = { producto: "", precio: "", cantidad: null };
+     setProductos(producto, index) {
+      let registro = { producto: "", precio: "", cantidad: null , id: null};
 
       registro.producto = producto.nombre;
       registro.precio = producto.precio;
       registro.cantidad = producto.cantidad;
+      registro.id = producto.id;
       //console.log(JSON.parse(JSON.stringify(registro)));
       //console.log(JSON.parse(JSON.stringify(this.resumen)));
 
@@ -200,23 +202,14 @@ export default {
       // console.log(JSON.parse(JSON.stringify(this.resumen)));
     },
     init() {
-      for (let i = 0; i < this.productos.length; i++) {
-        for (let j = 0; j < this.productos[i].productos.length; j++) {
-          for (let k = 0; k < this.cuentaEdit[0].resumen.length; k++) {
-            if (
-              this.cuentaEdit[0].resumen[k].producto ===
-              this.productos[i].productos[j].producto
-            ) {
-              this.productos[i].productos[j].cantidad = this.cuentaEdit[0].resumen[k].cantidad;
-            }
+      this.articulos.forEach(articulo => {
+        this.cuentaEdit[0].resumen.forEach(producto => {
+          if (producto.producto === articulo.nombre) {
+            articulo.cantidad = producto.cantidad;
           }
-          //console.log(JSON.stringify(this.productos[i].productos[j]));
-        }
-      }
+        });
+      });
     }
-  },
-  mounted() {
-    this.init();
   }
 };
 </script>
