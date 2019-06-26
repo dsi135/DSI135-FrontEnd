@@ -175,6 +175,7 @@ export default {
       registro.precio = producto.precio;
       registro.cantidad = producto.cantidad;
       registro.id = producto.id;
+      
       //console.log(JSON.parse(JSON.stringify(registro)));
       //console.log(JSON.parse(JSON.stringify(this.resumen)));
 

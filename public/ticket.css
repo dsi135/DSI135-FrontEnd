@@ -3,8 +3,8 @@
     .oculto-impresion * {
         display: none !important;
     }
-    .izquierda {
-        page-break-after: left;
+    .preparados {
+        page-break-after: always;
     }
 }
 
@@ -43,12 +43,7 @@ th.precio {
     align-content: center;
 }
 
-.ticket {
+.tickets {
     width: 71.9mm;
     max-width: 71.9mm;
-}
-
-img {
-    max-width: inherit;
-    width: inherit;
 }

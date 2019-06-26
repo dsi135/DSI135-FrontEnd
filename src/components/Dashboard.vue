@@ -34,7 +34,7 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="green darken-1" flat @click="dialog = false">CANCELAR</v-btn>
-          <v-btn color="green darken-1" flat @click="cobrarOrden(cobrarIndex); $router.push('/ticket')">COBRAR</v-btn>
+          <v-btn color="green darken-1" flat @click="cobrarOrden(cobrarIndex)">COBRAR</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -128,7 +128,8 @@ export default {
                 precio: detalle.producto1.precio,
                 cantidad: detalle.cantidad,
                 //categoria: detalle.producto1.categoria.nombre,
-                id: detalle.producto1.id
+                id: detalle.producto1.id,
+                preparado: detalle.producto1.preparado
              }
            })
         }
@@ -151,13 +152,15 @@ export default {
       this.cobrarIndex = orden;
     },
     cobrarOrden(orden) {
-      if (orden.total < this.pago) {
+      if (orden.total <= this.pago) {
         this.dialog = false;
         this.cuentaTicket.cuenta = orden;
         //console.log(JSON.stringify(this.cuentaTicket.cuenta));
         console.log(orden.cuenta);
-        rm.putJson('ordenes/finalizar/'+parseInt(orden.cuenta), { });
-        this.cuentas.cuentas.splice(this.cuentas.cuentas.indexOf(orden), 1);
+       // rm.putJson('ordenes/finalizar/'+parseInt(orden.cuenta), { });
+        //this.cuentas.cuentas.splice(this.cuentas.cuentas.indexOf(orden), 1);
+        this.cuentaTicket.pago = this.pago;
+        this.$router.push('/ticket');
       } else {
         this.snackbar = true;
       }

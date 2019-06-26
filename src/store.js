@@ -24,7 +24,8 @@ export default new Vuex.Store({
             alert: false
         },
         cuentaTicket: {
-            cuenta: {}
+            cuenta: {},
+            pago: 0
         },
         cuentas: {
             cuentas: [],
