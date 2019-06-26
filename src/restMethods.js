@@ -2,7 +2,7 @@ import Axios from 'axios'
 
 export default class RestMethods {
     constructor() {
-        this.baseUri = 'http://localhost:3030/sidi/webresources/'
+        this.baseUri = 'http://localhost:2608/sidi/webresources/'
         this.json = null
     }
 

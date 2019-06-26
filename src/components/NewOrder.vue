@@ -146,7 +146,7 @@ export default {
           //console.log(this.productos);
         }).catch(e=>{
           this.productos = [""];
-        });
+        }); 
     },
     aumentar(index, s) {
       if (s.cantidad >= 0) {

@@ -107,13 +107,14 @@ export default {
     ...mapState(["cuentas", "cuentaEdit"])
   },
   methods: {
-    armarResumen(){
+    armarResumen(){      
        this.articulos = this.productos.map(producto =>{
           return {
             nombre: producto.nombre,
             precio: producto.precio,
             cantidad: 0,
-            categoria: producto.categoria.nombre
+            categoria: producto.categoria.nombre,
+            id: producto.id
           }
         });
         //console.log(JSON.stringify(this.articulos))
