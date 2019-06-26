@@ -27,7 +27,8 @@ export default new Vuex.Store({
             cuenta: {}
         },
         cuentas: {
-            cuentas: []
+            cuentas: [],
+            crear: true
         },
         cuentaEdit: []
     },

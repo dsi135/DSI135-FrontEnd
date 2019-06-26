@@ -50,6 +50,7 @@ export default {
   },
   methods: {
     imprimirElemento() {
+      
       var elemento = document.querySelector(".ticket");
       var ventana = window.open("", "PRINT", "height=400,width=600");
       ventana.document.write(
@@ -77,6 +78,9 @@ export default {
   .oculto-impresion * {
     display: none !important;
   }
+  .ticket {
+        page-break-after: left;
+    }
 }
 
 td,

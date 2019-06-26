@@ -135,7 +135,11 @@ export default {
         }
       })
       console.log(detalleOrden)
-      rest.postJson(`detalleorden?mesero=${this.detalles.mesero}&&mesa=${this.detalles.mesa}&&cliente=${this.detalles.cliente}&&observaciones=${this.observaciones}`,detalleOrden);
+      if (this.cuentas.crear) {
+        rest.postJson(`detalleorden?mesero=${this.detalles.mesero}&&mesa=${this.detalles.mesa}&&cliente=${this.detalles.cliente}&&observaciones=${this.observaciones}`,detalleOrden);
+      }else{
+        rest.putJson(`detalleorden/${this.cuentas}`,detalleOrden);
+      }
       this.$router.push('dashboard');
       this.footer.alert = true;
       } else {
