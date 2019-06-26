@@ -4,23 +4,22 @@
       <v-flex xs12 md6>
         <v-card>
           <v-card-title>
-            <v-text-field v-model="fechaInicial" @input="input()" label="fecha inicial"></v-text-field>
-            <v-text-field @input="input()" label="fecha final" v-model="fechaFinal"></v-text-field>
+            <v-text-field v-model="fechaInicial" label="fecha inicial"></v-text-field>
+            <v-text-field label="fecha final" v-model="fechaFinal"></v-text-field>
           </v-card-title>
           <v-data-table :headers="headVenta" :items="ventas" class="elevation-1">
             <template v-slot:items="props">
               <td class="text-xs-center">{{ props.item[0] }}</td>
-              <td class="text-xs-center">{{ props.item[1] }}</td>
+              <td class="text-xs-center">${{ props.item[1] }}</td>
             </template>
           </v-data-table>
+          <v-btn @click="getVentas()">BUSCAR</v-btn>
         </v-card>
       </v-flex>
       <v-flex xs12 md6>
         <v-card>
           <v-card-title>
-            Producto
-            <v-spacer></v-spacer>
-            <v-text-field @input="getProductos()" label="Fecha" v-model="fechaProducto"></v-text-field>
+            <v-text-field label="Fecha" v-model="fechaProducto"></v-text-field>
           </v-card-title>
           <v-data-table :headers="headProducto" :items="productos" class="elevation-1">
             <template v-slot:items="props">
@@ -28,6 +27,7 @@
               <td class="text-xs-center">{{ props.item[1] }}</td>
             </template>
           </v-data-table>
+          <v-btn @click="getProductos()">BUSCAR</v-btn>
         </v-card>
       </v-flex>
     </v-layout>
@@ -56,6 +56,10 @@ export default {
   },
   methods: {
     getProductos() {
+      if (!this.fechaProducto) {
+        this.fechaProducto = this.fechaActual();
+      }
+
       rm.getJson("ordenes/ventas/producto?fecha="+this.fechaProducto)
         .then(r => {
           this.productos = r.data;
@@ -66,17 +70,12 @@ export default {
         });
     },
     getVentas() {
-      let date = new Date();
-      let year = date.getFullYear();
-      let mes = date.getMonth() + 1;
-      let dia = date.getDate();
-
       if (!this.fechaInicial) {
-        this.fechaInicial = year + "-" + mes + "-" + dia;
+        this.fechaInicial = this.fechaActual();
       }
 
       if (!this.fechaFinal) {
-        this.fechaFinal = year + "-" + mes + "-" + dia;
+        this.fechaFinal = this.fechaActual();
       }
 
       rm.getJson("ordenes/ventas?init="+this.fechaInicial+"&fina="+this.fechaFinal)
@@ -87,8 +86,13 @@ export default {
           this.ventas = [];
         });
     },
-    input(){
-      this.getVentas();
+    fechaActual(){
+      let date = new Date();
+      let year = date.getFullYear();
+      let mes = date.getMonth() + 1;
+      let dia = date.getDate();
+
+      return year + "-" + mes + "-" + dia;
     }
   }
 };
