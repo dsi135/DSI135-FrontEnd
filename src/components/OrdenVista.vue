@@ -142,7 +142,6 @@ export default {
           };
         });
         console.log(detalleOrden);
-        console.log("LLEGO AQUI!!");
 
         if (!this.detalles.cuenta) {
           this.detalles.cuenta = 0;
