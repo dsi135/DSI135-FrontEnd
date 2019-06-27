@@ -95,6 +95,7 @@ export default {
   },
   created(){
     this.getProductos();
+    this.cuentas.crear = false;
   },
   computed: {
     filter() {
